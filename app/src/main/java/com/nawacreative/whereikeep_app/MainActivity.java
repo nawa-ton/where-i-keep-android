@@ -52,10 +52,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        itemAdapter = new ItemAdapter();
+        itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+
+        itemAdapter = new ItemAdapter(itemViewModel);
         recyclerView.setAdapter(itemAdapter);
 
-        itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+
         itemViewModel.getAllItems().observe(this, new Observer<List<Item>>() {
             @Override
             public void onChanged(@Nullable List<Item> items) {

@@ -36,6 +36,10 @@ public class ItemRepo {
         return allItems;
     }
 
+    public List<Item> fetchAllItems() {
+        return itemDao.fetchAllItems();
+    }
+
     private static class InsertItemAsyncTask extends AsyncTask<Item, Void, Void>{
         private ItemDao itemDao;
 

@@ -38,4 +38,8 @@ public class ItemViewModel extends AndroidViewModel {
     public LiveData<List<Item>> getAllItems(){
         return allItems;
     }
+
+    public List<Item> fetchAllItems() {
+        return itemRepo.fetchAllItems();
+    }
 }

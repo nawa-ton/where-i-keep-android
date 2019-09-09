@@ -1,9 +1,6 @@
 package com.nawacreative.whereikeep_app;
 
-import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
-import android.support.v7.recyclerview.extensions.ListAdapter;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +9,18 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> implements Filterable {
+    private ItemViewModel itemViewModel;
 
     private List<Item> items = new ArrayList<>();
-    private List<Item> itemsFull;
 
     private OnItemClickListener listener;
-    private boolean initialized = false;
 
-    ItemAdapter(){
-
+    ItemAdapter(ItemViewModel itemViewModel){
+        this.itemViewModel = itemViewModel;
     }
 
     @NonNull
@@ -52,11 +46,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     }
 
     public void setItems(List<Item> items){
-        if (!this.initialized) {
-            this.itemsFull = new ArrayList(items);
-            this.initialized = true;
-        }
-
         this.items = items;
         notifyDataSetChanged();
     }
@@ -105,6 +94,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     private Filter itemFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            List<Item> itemsFull = itemViewModel.fetchAllItems();
             List<Item> filteredList = new ArrayList<>();
             if(constraint == null || constraint.length() == 0){
                 filteredList.addAll(itemsFull);

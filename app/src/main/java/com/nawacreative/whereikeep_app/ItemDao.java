@@ -26,5 +26,8 @@ public interface ItemDao {
     @Query("select * from item_table order by id desc")
     LiveData<List<Item>> getAllItems();
 
+    @Query("select * from item_table order by id desc")
+    List<Item> fetchAllItems();
+
 
 }
