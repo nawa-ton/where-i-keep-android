@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEditItemActivity"
+    android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingTop="50dp"
+    android:paddingRight="40dp"
+    android:paddingBottom="50dp">
+
+
+        <EditText
+            android:id="@+id/editTextItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:hint="Item Name *"/>
+
+        <EditText
+            android:id="@+id/editTextCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextItemName"
+            android:ems="10"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:hint="Category *"/>
+
+
+        <EditText
+            android:id="@+id/editTextQty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextCategory"
+            android:ems="10"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:hint="Quantity *"/>
+
+        <EditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextQty"
+            android:ems="10"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:hint="Stored Location *"/>
+
+        <EditText
+            android:id="@+id/editTextNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextLocation"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:textSize="14sp"
+            android:hint="Notes"/>
+
+        <TextView
+            android:id="@+id/textView_required"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="* Required"
+            android:layout_below="@+id/editTextNotes"
+            android:textSize="12sp"/>
+
+
+</LinearLayout>
