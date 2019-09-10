@@ -34,7 +34,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int position) {
         Item currentItem = items.get(position);
-        itemHolder.textViewID.setText(String.valueOf(currentItem.getId()));
+        itemHolder.textViewID.setText("ID " + String.valueOf(currentItem.getId()));
         itemHolder.textViewName.setText(currentItem.getItemName());
         itemHolder.textViewLocation.setText(currentItem.getStoragelocation());
 
