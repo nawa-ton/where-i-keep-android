@@ -3,4 +3,4 @@ Android application built with Java
 
 
 <br>
-<img src="whereikeep-img.jpg"/>
+<img src="whereikeep-img.png"/>
