@@ -1,7 +1,6 @@
-package com.nawacreative.whereikeep_app;
+package com.nawacreative.whereikeep;
 
 import android.app.Application;
-import android.app.ListActivity;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;

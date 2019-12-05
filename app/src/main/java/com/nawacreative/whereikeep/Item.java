@@ -1,4 +1,4 @@
-package com.nawacreative.whereikeep_app;
+package com.nawacreative.whereikeep;
 
 
 import androidx.room.Entity;

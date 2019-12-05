@@ -1,4 +1,4 @@
-package com.nawacreative.whereikeep_app;
+package com.nawacreative.whereikeep;
 
 import android.app.Application;
 import android.os.AsyncTask;

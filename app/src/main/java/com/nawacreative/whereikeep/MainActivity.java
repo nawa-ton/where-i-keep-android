@@ -1,19 +1,22 @@
-package com.nawacreative.whereikeep_app;
+package com.nawacreative.whereikeep;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SearchEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -21,12 +24,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
+public class MainActivity extends AppCompatActivity implements DeleteAllDialog.DialogListener {
     public static final int ADD_ITEM_REQUEST = 1;
     public static final int EDIT_ITEM_REQUEST = 2;
 
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("WHEREiKEEP");
+        setTitle("WhereIKeep");
 
         FloatingActionButton addButton = findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
@@ -74,10 +78,31 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                itemViewModel.delete(itemAdapter.getItemAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(MainActivity.this, "Item is deleted", Toast.LENGTH_LONG).show();
+                int position = viewHolder.getAdapterPosition();
+                final Item deletedItem = itemAdapter.getItemAt(position);
+                itemViewModel.delete(itemAdapter.getItemAt(position));
+                //Toast.makeText(MainActivity.this, "The item is deleted", Toast.LENGTH_LONG).show();
+                Snackbar.make(recyclerView, deletedItem.getItemName(), Snackbar.LENGTH_LONG).setAction("Undo delete", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemViewModel.insert(deletedItem);
+                    }
+                }).show();
+            }
+
+            //background of delete swipe
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent))
+                        .addActionIcon(R.drawable.ic_delete_forever_white_24dp)
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         }).attachToRecyclerView(recyclerView);
+
 
         itemAdapter.setOnItemClickListener(new ItemAdapter.OnItemClickListener() {
             @Override
@@ -92,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, EDIT_ITEM_REQUEST);
             }
         });
+
+
 
     }
 
@@ -161,12 +188,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_all:
-                itemViewModel.deleteAllItems();
-                Toast.makeText(this, "All items are deleted.", Toast.LENGTH_LONG).show();
+                openDeleteAllDialog();
+                //itemViewModel.deleteAllItems();
+                //Toast.makeText(this, "All items are deleted.", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public void onYesClick() {
+        itemViewModel.deleteAllItems();
+        Toast.makeText(this, "All items are deleted.", Toast.LENGTH_LONG).show();
+    }
+
+    private void openDeleteAllDialog(){
+        DeleteAllDialog dialog = new DeleteAllDialog();
+        dialog.show(getSupportFragmentManager(), "Delete all items dialog");
     }
 }

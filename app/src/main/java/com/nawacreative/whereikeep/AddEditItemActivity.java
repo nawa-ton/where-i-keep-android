@@ -1,4 +1,4 @@
-package com.nawacreative.whereikeep_app;
+package com.nawacreative.whereikeep;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,7 +64,7 @@ public class AddEditItemActivity extends AppCompatActivity {
                 saveItem();
                 return true;
             default:
-                    return super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
     }
 

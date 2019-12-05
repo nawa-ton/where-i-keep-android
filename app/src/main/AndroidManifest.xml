@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nawacreative.whereikeep_app">
+    package="com.nawacreative.whereikeep">
 
     <application
         android:allowBackup="true"
@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.nawacreative.whereikeep.MainActivity"></activity>
         <activity
-            android:name=".AddEditItemActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.nawacreative.whereikeep.AddEditItemActivity"
+            android:parentActivityName="com.nawacreative.whereikeep.MainActivity" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name="com.nawacreative.whereikeep.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:launchMode="singleTop">
             <intent-filter>
