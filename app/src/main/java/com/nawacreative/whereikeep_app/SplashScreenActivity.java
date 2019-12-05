@@ -1,9 +1,10 @@
 package com.nawacreative.whereikeep_app;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import gr.net.maroulis.library.EasySplashScreen;
 

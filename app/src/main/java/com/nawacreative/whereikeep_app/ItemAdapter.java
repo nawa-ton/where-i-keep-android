@@ -1,13 +1,15 @@
 package com.nawacreative.whereikeep_app;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +33,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
     }
 
     //getting data from single Item of java object into the ItemHolder
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ItemHolder itemHolder, int position) {
         Item currentItem = items.get(position);
-        itemHolder.textViewID.setText("ID " + String.valueOf(currentItem.getId()));
+        itemHolder.textViewID.setText(String.format("ID %d", currentItem.getId()));
         itemHolder.textViewName.setText(currentItem.getItemName());
         itemHolder.textViewLocation.setText(currentItem.getStoragelocation());
 
@@ -114,6 +117,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder> im
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
             items.clear();
             items.addAll((List) results.values);
